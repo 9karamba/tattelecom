@@ -1,61 +1,34 @@
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
+##### Прежде чем начать рекомендую сделать 2 вещи:
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+* php artisan migrate
+* php artisan db:seed
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+# Поиск крайтчайшего пути в графе
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Условия выполнения
+* 1-й и 2-й пункт обязательны, реализация 3-го пункта будет являться дополнительным плюсом.
+   
+#####Задание: Поиск кратчайшего пути в графе.
+  Имеется граф - совокупность непустого множества вершин и ребер (наборов пар вершин).
+  Две вершины на графе смежны, если они соединяются общим ребром.
+  Путь в графе представляет собой последовательность смежных вершин.
+  Каждое ребро имеет вес для каждого направления (из А в В один вес, из B в А другой вес). По умолчанию, за вес можно взять расстояние между вершинами графа.
+   
+  Необходимо найти кратчайший путь между двумя выбранными вершинами графа, направление имеет значение. 
+  Кратчайший путь, это набор смежных вершин с минимальной сумой весов связывающих их ребер.
+   
+#####Этапы:
+   
+  1) REST API
+  Редактирование графа: создание и удаление графа, добавление вершин, удаление вершин, связывание вершин, вес ребер;
+  Поиск кратчайшего пути: указываем две вершины - получаем кратчайший путь;
+  Вся редактируемая информация должна храниться в БД.
+  Рекомендуемые инструменты: PHP (YII2), PostgreSQL
+   
+  2) Реализовать визуализацию редактирования графа, используя вышеописанный REST API.
+  Фронтенд должен работать в браузере. 
+  Допускается использовать любой Javascript фреймворк.
+   
+  3) Реализовать примитивное редактирование в совместном режиме. Т.е. отображать, в реальном времени изменения графа для всех пользователей, которые открыли интерфейс управления графом.
+  Для реализации этого функционала можно воспользоваться стеком Node.JS - Socket.IO

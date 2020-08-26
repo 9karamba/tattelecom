@@ -7,20 +7,12 @@ use Illuminate\Http\Request;
 
 class VerticesController extends Controller
 {
-    public function index()
-    {
-        return Vertex::all();
-    }
-
-    public function show(Vertex $vertex)
-    {
-        return $vertex;
-    }
 
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|unique:graphs|max:100'
+            'name' => 'required|unique:vertex|max:100',
+            'graph_id' => 'required|integer'
         ]);
 
         $vertex = Vertex::create($request->all());

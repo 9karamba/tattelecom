@@ -29,7 +29,11 @@ Route::delete('graphs/{graph}', 'GraphsController@delete');
 /*
  *  Routes for Vertex
  */
-Route::get('vertices', 'VerticesController@index');
-Route::get('vertices/{vertex}', 'VerticesController@show');
 Route::post('vertices','VerticesController@store');
 Route::delete('vertices/{vertex}', 'VerticesController@delete');
+
+/*
+ *  Routes for Edge
+ */
+Route::post('edges','EdgesController@store');
+Route::delete('edges/{edge}', 'EdgesController@delete');

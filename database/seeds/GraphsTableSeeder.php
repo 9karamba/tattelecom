@@ -15,10 +15,9 @@ class GraphsTableSeeder extends Seeder
     {
         $faker = Factory::create();
 
-        // Create 2 product records
         for ($i = 0; $i < 2; $i++) {
             Graph::create([
-                'name' => $faker->title
+                'name' => $faker->name
             ]);
         }
     }

@@ -20,21 +20,11 @@ class GraphsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required|unique:products|max:255',
-            'description' => 'required',
-            'price' => 'integer',
-            'availability' => 'boolean',
+            'name' => 'required|unique:graphs|max:100'
         ]);
 
         $graph = Graph::create($request->all());
         return response()->json($graph, 201);
-    }
-
-    public function update(Request $request, Graph $graph)
-    {
-        $graph->update($request->all());
-
-        return response()->json($graph, 200);
     }
 
     public function delete(Graph $graph)

@@ -66179,16 +66179,22 @@ var ShowGraph = /*#__PURE__*/function (_Component) {
   }, {
     key: "renderHead",
     value: function renderHead() {
+      var _this3 = this;
+
       return this.state.vertices.map(function (vertex) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
           key: vertex.id
-        }, vertex.name);
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, vertex.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+          onClick: function onClick() {
+            return _this3.handleDeleteVertex(vertex);
+          }
+        }, "Delete"));
       });
     }
   }, {
     key: "handleAddVertex",
     value: function handleAddVertex(vertex) {
-      var _this3 = this;
+      var _this4 = this;
 
       fetch('api/vertices/', {
         method: 'post',
@@ -66200,10 +66206,28 @@ var ShowGraph = /*#__PURE__*/function (_Component) {
       }).then(function (response) {
         return response.json();
       }).then(function (data) {
-        _this3.setState(function (prevState) {
+        _this4.setState(function (prevState) {
           return {
             vertices: prevState.vertices.concat(data)
           };
+        });
+      });
+    }
+  }, {
+    key: "handleDeleteVertex",
+    value: function handleDeleteVertex(vertex) {
+      var _this5 = this;
+
+      var currentVertex = vertex;
+      fetch('api/vertices/' + currentVertex.id, {
+        method: 'delete'
+      }).then(function (response) {
+        var array = _this5.state.vertices.filter(function (item) {
+          return item !== currentVertex;
+        });
+
+        _this5.setState({
+          vertices: array
         });
       });
     }

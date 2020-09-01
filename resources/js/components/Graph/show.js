@@ -33,7 +33,14 @@ class ShowGraph extends Component {
         return this.state.vertices.map(vertex => {
             return (
                 <th key={vertex.id} >
-                    {vertex.name}
+                    <p>
+                        {vertex.name}
+                    </p>
+
+                    <p onClick={
+                        () =>this.handleDeleteVertex(vertex)}>
+                        Delete
+                    </p>
                 </th>
             );
         })
@@ -59,6 +66,21 @@ class ShowGraph extends Component {
                     vertices: prevState.vertices.concat(data)
                 }))
             })
+    }
+
+    handleDeleteVertex(vertex) {
+
+        const currentVertex = vertex;
+        fetch( 'api/vertices/' + currentVertex.id,
+            { method: 'delete' })
+            .then(response => {
+                var array = this.state.vertices.filter(function(item) {
+                    return item !== currentVertex
+                });
+
+                this.setState({ vertices: array });
+
+            });
     }
 
     render() {

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import AddGraph from "./add";
 
 class Main extends Component {
 
@@ -11,6 +12,7 @@ class Main extends Component {
             currentGraph: null
 
         }
+        this.handleAddGraph = this.handleAddGraph.bind(this);
     }
 
     componentDidMount() {
@@ -38,6 +40,29 @@ class Main extends Component {
         this.setState({currentGraph:graph});
     }
 
+    handleAddGraph(graph) {
+
+        fetch( 'api/graphs/', {
+            method:'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+
+            body: JSON.stringify(graph)
+        })
+            .then(response => {
+                return response.json();
+            })
+            .then( data => {
+
+                this.setState((prevState)=> ({
+                    graphs: prevState.graphs.concat(data),
+                    currentGraph : data
+                }))
+            })
+    }
+
     render() {
 
         return (
@@ -48,8 +73,8 @@ class Main extends Component {
                         <ul>
                             { this.renderGraphs() }
                         </ul>
-
                     </div>
+                    <AddGraph onAdd={this.handleAddGraph} />
                 </div>
 
             </div>

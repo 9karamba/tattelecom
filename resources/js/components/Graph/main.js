@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import AddGraph from "./add";
+import ShowGraph from "./show";
 
 class Main extends Component {
 
@@ -97,7 +98,7 @@ class Main extends Component {
                     </div>
                     <AddGraph onAdd={this.handleAddGraph} />
                 </div>
-
+                <ShowGraph graph={this.state.currentGraph} />
             </div>
 
         );

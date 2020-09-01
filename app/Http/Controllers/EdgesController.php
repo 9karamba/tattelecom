@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class EdgesController extends Controller
 {
+    public function index()
+    {
+        return Edge::all();
+    }
 
     public function store(Request $request)
     {

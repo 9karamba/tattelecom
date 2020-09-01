@@ -10,7 +10,7 @@ class Vertex extends Model
 
     /* Add the fillable property */
     protected $fillable = [
-        'name'
+        'name', 'graph_id'
     ];
 
     public function graph(){

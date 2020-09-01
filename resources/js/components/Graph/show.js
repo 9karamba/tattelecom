@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import AddGraph from "./add";
+import AddVertex from "../Vertex/add";
 
 class ShowGraph extends Component {
 
@@ -9,6 +11,7 @@ class ShowGraph extends Component {
             graph: null,
             vertices: []
         }
+        this.handleAddVertex = this.handleAddVertex.bind(this);
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -36,6 +39,28 @@ class ShowGraph extends Component {
         })
     }
 
+    handleAddVertex(vertex) {
+
+        fetch( 'api/vertices/', {
+            method:'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+
+            body: JSON.stringify(vertex)
+        })
+            .then(response => {
+                return response.json();
+            })
+            .then( data => {
+
+                this.setState((prevState)=> ({
+                    vertices: prevState.vertices.concat(data)
+                }))
+            })
+    }
+
     render() {
         const { graph, vertices } = this.state;
 
@@ -50,14 +75,19 @@ class ShowGraph extends Component {
         else {
             return (
                 <div>
+
                     <table>
                         <thead>
                             <tr>
-                                <th></th>
+                                <th/>
                                 {this.renderHead()}
                             </tr>
                         </thead>
                     </table>
+
+                    <div>
+                        <AddVertex graph_id={this.state.graph.id} onAdd={this.handleAddVertex} />
+                    </div>
                 </div>
 
             );

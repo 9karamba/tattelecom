@@ -66017,11 +66017,16 @@ var Main = /*#__PURE__*/function (_Component) {
 
       return this.state.graphs.map(function (graph) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          key: graph.id
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           onClick: function onClick() {
             return _this3.handleClick(graph);
-          },
-          key: graph.id
-        }, graph.name);
+          }
+        }, graph.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+          onClick: function onClick() {
+            return _this3.handleDeleteGraph(graph);
+          }
+        }, "Delete"));
       });
     }
   }, {
@@ -66051,6 +66056,25 @@ var Main = /*#__PURE__*/function (_Component) {
             graphs: prevState.graphs.concat(data),
             currentGraph: data
           };
+        });
+      });
+    }
+  }, {
+    key: "handleDeleteGraph",
+    value: function handleDeleteGraph(graph) {
+      var _this5 = this;
+
+      var currentGraph = graph;
+      fetch('api/graphs/' + currentGraph.id, {
+        method: 'delete'
+      }).then(function (response) {
+        var array = _this5.state.graphs.filter(function (item) {
+          return item !== currentGraph;
+        });
+
+        _this5.setState({
+          graphs: array,
+          currentGraph: null
         });
       });
     }

@@ -28,9 +28,15 @@ class Main extends Component {
     renderGraphs() {
         return this.state.graphs.map(graph => {
             return (
-                <li onClick={
-                    () =>this.handleClick(graph)} key={graph.id} >
-                    { graph.name }
+                <li key={graph.id} >
+                    <p onClick={
+                        () =>this.handleClick(graph)}>
+                        { graph.name }
+                    </p>
+                    <p onClick={
+                        () =>this.handleDeleteGraph(graph)}>
+                        Delete
+                    </p>
                 </li>
             );
         })
@@ -61,6 +67,21 @@ class Main extends Component {
                     currentGraph : data
                 }))
             })
+    }
+
+    handleDeleteGraph(graph) {
+
+        const currentGraph = graph;
+        fetch( 'api/graphs/' + currentGraph.id,
+            { method: 'delete' })
+            .then(response => {
+                var array = this.state.graphs.filter(function(item) {
+                    return item !== currentGraph
+                });
+
+                this.setState({ graphs: array, currentGraph: null});
+
+            });
     }
 
     render() {

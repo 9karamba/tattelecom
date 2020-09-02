@@ -48,6 +48,7 @@ class Algorithm extends Component {
             }
         });
 
+        //алгоритм Дейкстры
         do {
             minIndex = 10000;
             minDistance = 10000;
@@ -84,6 +85,7 @@ class Algorithm extends Component {
         let result = [ vertices[end].name ];
         let weight = vertices[end].distance;
 
+        //получаем вершины в обратном порядке
         for (let i = 0; i < this.state.edges.length; i++) {
             let id_from = this.state.edges[i].vertex_id_from;
             let id_to = this.state.edges[i].vertex_id_to;

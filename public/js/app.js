@@ -67114,7 +67114,8 @@ var ShowGraph = /*#__PURE__*/function (_Component) {
       }
 
       return componentDidUpdate;
-    }()
+    }() //рендеры для таблицы
+
   }, {
     key: "renderHead",
     value: function renderHead() {
@@ -67165,7 +67166,8 @@ var ShowGraph = /*#__PURE__*/function (_Component) {
           key: "row" + vertex_to.id
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, vertex_to.name), row);
       });
-    }
+    } //добавление и удаление вершин
+
   }, {
     key: "handleAddVertex",
     value: function handleAddVertex(vertex) {
@@ -67205,7 +67207,8 @@ var ShowGraph = /*#__PURE__*/function (_Component) {
           vertices: array
         });
       });
-    }
+    } //добавление и удаление связей
+
   }, {
     key: "handleAddEdge",
     value: function handleAddEdge(edge) {
@@ -67343,11 +67346,7 @@ var AddVertex = /*#__PURE__*/function (_Component) {
   _createClass(AddVertex, [{
     key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(nextProps) {
-      var state = Object.assign({}, this.state.newVertex);
-      state['graph_id'] = nextProps.graph_id;
-      this.setState({
-        newVertex: state
-      });
+      this.handleInput('graph_id', nextProps.graph_id);
     }
   }, {
     key: "handleInput",
@@ -67481,7 +67480,7 @@ var Algorithm = /*#__PURE__*/function (_Component) {
           distance: vertex.id === start ? 0 : 10000,
           visit: 0
         };
-      });
+      }); //алгоритм Дейкстры
 
       do {
         minIndex = 10000;
@@ -67516,7 +67515,7 @@ var Algorithm = /*#__PURE__*/function (_Component) {
       } while (minIndex < 10000);
 
       var result = [vertices[end].name];
-      var weight = vertices[end].distance;
+      var weight = vertices[end].distance; //получаем вершины в обратном порядке
 
       for (var _i = 0; _i < this.state.edges.length; _i++) {
         var _id_from = this.state.edges[_i].vertex_id_from;

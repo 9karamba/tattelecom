@@ -33,6 +33,7 @@ class ShowGraph extends Component {
         }
     }
 
+    //рендеры для таблицы
     renderHead() {
         return this.state.vertices.map(vertex => {
             return (
@@ -88,6 +89,7 @@ class ShowGraph extends Component {
         })
     }
 
+    //добавление и удаление вершин
     handleAddVertex(vertex) {
 
         fetch( 'api/vertices/', {
@@ -126,6 +128,7 @@ class ShowGraph extends Component {
             });
     }
 
+    //добавление и удаление связей
     handleAddEdge(edge) {
 
         fetch( 'api/edges/', {

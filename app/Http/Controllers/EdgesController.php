@@ -28,7 +28,7 @@ class EdgesController extends Controller
     {
         $edge->delete();
 
-        return response()->json(null, 204);
+        return response()->json(Edge::all(), 204);
     }
 
 }

@@ -74,6 +74,10 @@ class ShowGraph extends Component {
                     return (
                         <td key={"cell" + cell[0].id}>
                             {cell[0].weight}
+                            <p onClick={
+                                () =>this.handleDeleteEdge(cell[0])}>
+                                Delete
+                            </p>
                         </td>
                     );
                 }
@@ -146,6 +150,21 @@ class ShowGraph extends Component {
                     edges: data
                 })
             })
+    }
+
+    handleDeleteEdge(edge) {
+
+        const currentEdge = edge;
+        fetch( 'api/edges/' + currentEdge.id,
+            { method: 'delete' })
+            .then(response => {
+                var array = this.state.edges.filter(function(item) {
+                    return item !== currentEdge
+                });
+
+                this.setState({ edges: array });
+
+            });
     }
 
     render() {

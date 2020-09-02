@@ -66340,7 +66340,11 @@ var ShowGraph = /*#__PURE__*/function (_Component) {
           } else {
             return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
               key: "cell" + cell[0].id
-            }, cell[0].weight);
+            }, cell[0].weight, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+              onClick: function onClick() {
+                return _this4.handleDeleteEdge(cell[0]);
+              }
+            }, "Delete"));
           }
         });
 
@@ -66406,6 +66410,24 @@ var ShowGraph = /*#__PURE__*/function (_Component) {
       }).then(function (data) {
         _this7.setState({
           edges: data
+        });
+      });
+    }
+  }, {
+    key: "handleDeleteEdge",
+    value: function handleDeleteEdge(edge) {
+      var _this8 = this;
+
+      var currentEdge = edge;
+      fetch('api/edges/' + currentEdge.id, {
+        method: 'delete'
+      }).then(function (response) {
+        var array = _this8.state.edges.filter(function (item) {
+          return item !== currentEdge;
+        });
+
+        _this8.setState({
+          edges: array
         });
       });
     }

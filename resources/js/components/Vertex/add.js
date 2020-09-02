@@ -16,11 +16,12 @@ class AddVertex extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.handleInput('graph_id', nextProps.graph_id);
+        let state = Object.assign({}, this.state.newVertex);
+        state['graph_id'] = nextProps.graph_id;
+        this.setState({newVertex: state });
     }
 
     handleInput(key, e) {
-
         let state = Object.assign({}, this.state.newVertex);
         state[key] = e.target.value;
         this.setState({newVertex: state });
@@ -40,12 +41,9 @@ class AddVertex extends Component {
 
                     <form onSubmit={this.handleSubmit}>
 
-                        <label>
-                            Имя:
-                            <input type="text" onChange={(e)=>this.handleInput('name',e)} />
-                        </label>
-
+                        <input type="text" placeholder="Введите название..." onChange={(e)=>this.handleInput('name',e)} />
                         <input  type="submit" value="Добавить" />
+
                     </form>
                 </div>
             </div>)

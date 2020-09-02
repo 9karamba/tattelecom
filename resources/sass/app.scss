@@ -6,3 +6,101 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+h3{
+    font-size: 20px;
+}
+h4{
+    font-size: 18px;
+}
+form{
+    display: flex;
+    flex-direction: column;
+
+    input{
+        margin-bottom: 10px;
+    }
+}
+
+.delete-button{
+    color: red;
+    font-size: 12px;
+    cursor: pointer;
+}
+.title-site{
+    text-align: center;
+    margin: 30px 0 20px;
+}
+#root{
+    background: #ebebeb;
+
+    .main {
+        display: flex;
+
+        &-graphs {
+            flex: 0 0 20%;
+            padding: 30px 15px;
+            border-right: 1px solid;
+
+            ul p {
+                margin-bottom: 10px;
+                cursor: pointer;
+            }
+        }
+
+        &-body {
+            display: flex;
+            justify-content: space-between;
+            flex: 0 0 80%;
+
+            table{
+                width: 650px;
+                margin: 30px;
+
+                th {
+                    font-weight: normal;
+                    color: #039;
+                    border-bottom: 2px solid #6678b1;
+                    border-top: 2px solid #b4c1e9;
+                    border-right: 2px solid #b4c1e9;
+                    border-left: 2px solid #b4c1e9;
+                    padding: 10px 8px;
+                }
+                td {
+                    color: #669;
+                    padding: 9px 8px;
+                    transition: .3s linear;
+                    border-bottom: 2px solid #b4c1e9;
+                    border-right: 2px solid #b4c1e9;
+                    border-left: 2px solid #b4c1e9;
+                }
+                tr:hover td {
+                    color: #6699ff;
+                }
+                tr > td:first-child {
+                    color: #039;
+                    border-right: 2px solid #6678b1;
+                }
+                tr > th:first-child {
+                    border-right: 2px solid #6678b1;
+                }
+            }
+
+            &__functional{
+                border-left: 1px solid;
+                padding: 30px;
+
+                h2{
+                    font-size: 20px;
+                    font-weight: 600;
+                }
+                select{
+                    margin-bottom: 20px;
+                }
+                & > div {
+                    margin-bottom: 30px;
+                }
+            }
+        }
+    }
+}

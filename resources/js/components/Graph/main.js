@@ -35,7 +35,7 @@ class Main extends Component {
                         { graph.name }
                     </p>
                     <p onClick={
-                        () =>this.handleDeleteGraph(graph)}>
+                        () =>this.handleDeleteGraph(graph)} className="delete-button">
                         Delete
                     </p>
                 </li>
@@ -88,8 +88,8 @@ class Main extends Component {
     render() {
 
         return (
-            <div>
-                <div>
+            <div className="main">
+                <div className="main-graphs">
                     <div>
                         <h3> Графы: </h3>
                         <ul>

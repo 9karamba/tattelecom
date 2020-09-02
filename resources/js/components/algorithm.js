@@ -8,8 +8,8 @@ class Algorithm extends Component {
             vertices: this.props.vertices,
             edges: this.props.edges,
             data: {
-                vertex_id_from: this.props.vertices[0].id,
-                vertex_id_to: this.props.vertices[1].id
+                vertex_id_from: this.props.vertices.length === 0 ? 0 : this.props.vertices[0].id,
+                vertex_id_to: this.props.vertices.length === 0 ? 1 : this.props.vertices[1].id
             },
             result: 0
         }
@@ -84,18 +84,22 @@ class Algorithm extends Component {
 
         let result = [ vertices[end].name ];
         let weight = vertices[end].distance;
+        let end_index = end;
 
-        //получаем вершины в обратном порядке
-        for (let i = 0; i < this.state.edges.length; i++) {
-            let id_from = this.state.edges[i].vertex_id_from;
-            let id_to = this.state.edges[i].vertex_id_to;
+        while (end_index !== start && weight !== 10000) {
+            //получаем вершины в обратном порядке
+            for (let i = 0; i < this.state.edges.length; i++) {
+                let id_from = this.state.edges[i].vertex_id_from;
+                let id_to = this.state.edges[i].vertex_id_to;
 
-            if (id_to === end) {
-                let temp = weight - this.state.edges[i].weight;
+                if (id_to === end_index) {
+                    let temp = weight - this.state.edges[i].weight;
 
-                if (temp === vertices[id_from].distance) {
-                    weight = temp;
-                    result.push(vertices[id_from].name);
+                    if (temp === vertices[id_from].distance) {
+                        weight = temp;
+                        end_index = id_from;
+                        result.push(vertices[id_from].name);
+                    }
                 }
             }
         }
@@ -123,41 +127,41 @@ class Algorithm extends Component {
 
                         <label>
                             Из:
-                            <select value={this.state.data.vertex_id_from}
-                                    onChange={(e) => this.handleInput('vertex_id_from', e)}>
-                                {
-                                    this.state.vertices.map(vertex => {
-                                        return (
-                                            <option value={vertex.id} key={"algorithm-from" + vertex.id}>
-                                                {vertex.name}
-                                            </option>
-                                        );
-                                    })
-                                }
-                            </select>
                         </label>
+                        <select value={this.state.data.vertex_id_from}
+                                onChange={(e) => this.handleInput('vertex_id_from', e)}>
+                            {
+                                this.state.vertices.map(vertex => {
+                                    return (
+                                        <option value={vertex.id} key={"algorithm-from" + vertex.id}>
+                                            {vertex.name}
+                                        </option>
+                                    );
+                                })
+                            }
+                        </select>
 
                         <label>
                             В:
-                            <select value={this.state.data.vertex_id_to}
-                                    onChange={(e) => this.handleInput('vertex_id_to', e)}>
-                                {
-                                    this.state.vertices.map(vertex => {
-                                        return (
-                                            <option value={vertex.id} key={"algorithm-to" + vertex.id}>
-                                                {vertex.name}
-                                            </option>
-                                        );
-                                    })
-                                }
-                            </select>
                         </label>
+                        <select value={this.state.data.vertex_id_to}
+                                onChange={(e) => this.handleInput('vertex_id_to', e)}>
+                            {
+                                this.state.vertices.map(vertex => {
+                                    return (
+                                        <option value={vertex.id} key={"algorithm-to" + vertex.id}>
+                                            {vertex.name}
+                                        </option>
+                                    );
+                                })
+                            }
+                        </select>
 
                         <input type="submit" value="Найти"/>
                     </form>
                 </div>
                 <div>
-                    <h2> Результат: </h2>
+                    <h3> Результат: </h3>
                     <p>
                         {this.state.result}
                     </p>

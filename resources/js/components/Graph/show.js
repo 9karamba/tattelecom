@@ -43,7 +43,7 @@ class ShowGraph extends Component {
                     </p>
 
                     <p onClick={
-                        () =>this.handleDeleteVertex(vertex)}>
+                        () =>this.handleDeleteVertex(vertex)} className="delete-button">
                         Delete
                     </p>
                 </th>
@@ -55,7 +55,7 @@ class ShowGraph extends Component {
         return this.state.vertices.map(vertex_to => {
             let row = this.state.vertices.map(vertex_from => {
                 let cell = [];
-                console.log(this.state.error);
+
                 if(this.state.edges.length !== undefined){
                     cell = this.state.edges.filter(edge => {
                         return edge.vertex_id_from === vertex_from.id && edge.vertex_id_to === vertex_to.id;
@@ -71,7 +71,7 @@ class ShowGraph extends Component {
                         <td key={"cell" + cell[0].id}>
                             {cell[0].weight}
                             <p onClick={
-                                () =>this.handleDeleteEdge(cell[0])}>
+                                () =>this.handleDeleteEdge(cell[0])} className="delete-button">
                                 Delete
                             </p>
                         </td>
@@ -175,10 +175,13 @@ class ShowGraph extends Component {
 
     render() {
         const { graph, error } = this.state;
+        const divStyle = {
+            padding: '30px 15px',
+        }
 
         if(error !== null) {
             return (
-                <div>
+                <div className="main-body" style={divStyle}>
                     <h4>
                         {error}
                         <br/>
@@ -190,7 +193,7 @@ class ShowGraph extends Component {
         }
         else if(graph === null) {
             return (
-                <div>
+                <div className="main-body" style={divStyle}>
                     <h4> Выберите граф. </h4>
                 </div>
 
@@ -198,8 +201,7 @@ class ShowGraph extends Component {
         }
         else {
             return (
-                <div>
-                    <p>{this.state.error}</p>
+                <div className="main-body">
 
                     <table>
                         <thead>
@@ -213,10 +215,10 @@ class ShowGraph extends Component {
                         </tbody>
                     </table>
 
-                    <div>
+                    <div className="main-body__functional">
+                        <Algorithm vertices={this.state.vertices} edges={this.state.edges} />
                         <AddVertex graph_id={this.state.graph.id} onAdd={this.handleAddVertex} />
                         <AddEdge vertices={this.state.vertices} onAdd={this.handleAddEdge} />
-                        <Algorithm vertices={this.state.vertices} edges={this.state.edges} />
                     </div>
                 </div>
 

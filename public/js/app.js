@@ -66661,8 +66661,8 @@ var AddEdge = /*#__PURE__*/function (_Component) {
     _this.state = {
       newEdge: {
         weight: 0,
-        vertex_id_from: _this.props.vertices[0].id,
-        vertex_id_to: _this.props.vertices[1].id
+        vertex_id_from: _this.props.vertices.length === 0 ? 0 : _this.props.vertices[0].id,
+        vertex_id_to: _this.props.vertices.length === 0 ? 1 : _this.props.vertices[1].id
       },
       vertices: _this.props.vertices
     };
@@ -66698,14 +66698,15 @@ var AddEdge = /*#__PURE__*/function (_Component) {
     value: function render() {
       var _this2 = this;
 
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, " \u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u043D\u043E\u0432\u0443\u044E \u0432\u0435\u0440\u0448\u0438\u043D\u0443 "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, " \u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u043D\u043E\u0432\u0443\u044E \u044F\u0447\u0435\u0439\u043A\u0443 "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: this.handleSubmit
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "\u0412\u0435\u0441:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
+        placeholder: "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0432\u0435\u0441...",
         onChange: function onChange(e) {
           return _this2.handleInput('weight', e);
         }
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "\u0418\u0437 \u0442\u043E\u0447\u043A\u0438:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "\u0418\u0437 \u0442\u043E\u0447\u043A\u0438:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
         value: this.state.newEdge.vertex_id_from,
         onChange: function onChange(e) {
           return _this2.handleInput('vertex_id_from', e);
@@ -66715,7 +66716,7 @@ var AddEdge = /*#__PURE__*/function (_Component) {
           value: vertex.id,
           key: "from" + vertex.id
         }, vertex.name);
-      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "\u0412 \u0442\u043E\u0447\u043A\u0443:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "\u0412 \u0442\u043E\u0447\u043A\u0443:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
         value: this.state.newEdge.vertex_id_to,
         onChange: function onChange(e) {
           return _this2.handleInput('vertex_id_to', e);
@@ -66725,7 +66726,7 @@ var AddEdge = /*#__PURE__*/function (_Component) {
           value: vertex.id,
           key: "to" + vertex.id
         }, vertex.name);
-      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "submit",
         value: "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C"
       }))));
@@ -66815,14 +66816,15 @@ var AddGraph = /*#__PURE__*/function (_Component) {
     value: function render() {
       var _this2 = this;
 
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, " \u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u043D\u043E\u0432\u044B\u0439 \u0433\u0440\u0430\u0444 "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, " \u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u043D\u043E\u0432\u044B\u0439 \u0433\u0440\u0430\u0444: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: this.handleSubmit
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "\u0418\u043C\u044F:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
+        placeholder: "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0438\u043C\u044F..",
         onChange: function onChange(e) {
           return _this2.handleInput('name', e);
         }
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "submit",
         value: "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C"
       }))));
@@ -66925,7 +66927,8 @@ var Main = /*#__PURE__*/function (_Component) {
         }, graph.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           onClick: function onClick() {
             return _this3.handleDeleteGraph(graph);
-          }
+          },
+          className: "delete-button"
         }, "Delete"));
       });
     }
@@ -66981,7 +66984,11 @@ var Main = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, " \u0413\u0440\u0430\u0444\u044B: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.renderGraphs())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_add__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "main"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "main-graphs"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, " \u0413\u0440\u0430\u0444\u044B: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.renderGraphs())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_add__WEBPACK_IMPORTED_MODULE_2__["default"], {
         onAdd: this.handleAddGraph
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_show__WEBPACK_IMPORTED_MODULE_3__["default"], {
         graph: this.state.currentGraph
@@ -67127,7 +67134,8 @@ var ShowGraph = /*#__PURE__*/function (_Component) {
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, vertex.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", {
           onClick: function onClick() {
             return _this2.handleDeleteVertex(vertex);
-          }
+          },
+          className: "delete-button"
         }, "Delete"));
       });
     }
@@ -67139,7 +67147,6 @@ var ShowGraph = /*#__PURE__*/function (_Component) {
       return this.state.vertices.map(function (vertex_to) {
         var row = _this3.state.vertices.map(function (vertex_from) {
           var cell = [];
-          console.log(_this3.state.error);
 
           if (_this3.state.edges.length !== undefined) {
             cell = _this3.state.edges.filter(function (edge) {
@@ -67157,7 +67164,8 @@ var ShowGraph = /*#__PURE__*/function (_Component) {
             }, cell[0].weight, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", {
               onClick: function onClick() {
                 return _this3.handleDeleteEdge(cell[0]);
-              }
+              },
+              className: "delete-button"
             }, "Delete"));
           }
         });
@@ -67259,21 +67267,34 @@ var ShowGraph = /*#__PURE__*/function (_Component) {
       var _this$state = this.state,
           graph = _this$state.graph,
           error = _this$state.error;
+      var divStyle = {
+        padding: '30px 15px'
+      };
 
       if (error !== null) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h4", null, error, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("br", null), "\u041E\u0431\u043D\u043E\u0432\u0438\u0442\u0435 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0443 \u0438 \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u0435\u0449\u0435 \u0440\u0430\u0437."));
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          className: "main-body",
+          style: divStyle
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h4", null, error, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("br", null), "\u041E\u0431\u043D\u043E\u0432\u0438\u0442\u0435 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0443 \u0438 \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u0435\u0449\u0435 \u0440\u0430\u0437."));
       } else if (graph === null) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h4", null, " \u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0433\u0440\u0430\u0444. "));
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          className: "main-body",
+          style: divStyle
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h4", null, " \u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0433\u0440\u0430\u0444. "));
       } else {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, this.state.error), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("table", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null), this.renderHead())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tbody", null, this.renderBody())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Vertex_add__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          className: "main-body"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("table", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null), this.renderHead())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tbody", null, this.renderBody())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          className: "main-body__functional"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_algorithm__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          vertices: this.state.vertices,
+          edges: this.state.edges
+        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Vertex_add__WEBPACK_IMPORTED_MODULE_2__["default"], {
           graph_id: this.state.graph.id,
           onAdd: this.handleAddVertex
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Edge_add__WEBPACK_IMPORTED_MODULE_3__["default"], {
           vertices: this.state.vertices,
           onAdd: this.handleAddEdge
-        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_algorithm__WEBPACK_IMPORTED_MODULE_4__["default"], {
-          vertices: this.state.vertices,
-          edges: this.state.edges
         })));
       }
     }
@@ -67346,7 +67367,11 @@ var AddVertex = /*#__PURE__*/function (_Component) {
   _createClass(AddVertex, [{
     key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(nextProps) {
-      this.handleInput('graph_id', nextProps.graph_id);
+      var state = Object.assign({}, this.state.newVertex);
+      state['graph_id'] = nextProps.graph_id;
+      this.setState({
+        newVertex: state
+      });
     }
   }, {
     key: "handleInput",
@@ -67370,12 +67395,13 @@ var AddVertex = /*#__PURE__*/function (_Component) {
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, " \u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u043D\u043E\u0432\u0443\u044E \u0432\u0435\u0440\u0448\u0438\u043D\u0443 "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: this.handleSubmit
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "\u0418\u043C\u044F:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
+        placeholder: "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435...",
         onChange: function onChange(e) {
           return _this2.handleInput('name', e);
         }
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "submit",
         value: "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C"
       }))));
@@ -67439,8 +67465,8 @@ var Algorithm = /*#__PURE__*/function (_Component) {
       vertices: _this.props.vertices,
       edges: _this.props.edges,
       data: {
-        vertex_id_from: _this.props.vertices[0].id,
-        vertex_id_to: _this.props.vertices[1].id
+        vertex_id_from: _this.props.vertices.length === 0 ? 0 : _this.props.vertices[0].id,
+        vertex_id_to: _this.props.vertices.length === 0 ? 1 : _this.props.vertices[1].id
       },
       result: 0
     };
@@ -67515,18 +67541,23 @@ var Algorithm = /*#__PURE__*/function (_Component) {
       } while (minIndex < 10000);
 
       var result = [vertices[end].name];
-      var weight = vertices[end].distance; //получаем вершины в обратном порядке
+      var weight = vertices[end].distance;
+      var end_index = end;
 
-      for (var _i = 0; _i < this.state.edges.length; _i++) {
-        var _id_from = this.state.edges[_i].vertex_id_from;
-        var _id_to = this.state.edges[_i].vertex_id_to;
+      while (end_index !== start && weight !== 10000) {
+        //получаем вершины в обратном порядке
+        for (var _i = 0; _i < this.state.edges.length; _i++) {
+          var _id_from = this.state.edges[_i].vertex_id_from;
+          var _id_to = this.state.edges[_i].vertex_id_to;
 
-        if (_id_to === end) {
-          var temp = weight - this.state.edges[_i].weight;
+          if (_id_to === end_index) {
+            var temp = weight - this.state.edges[_i].weight;
 
-          if (temp === vertices[_id_from].distance) {
-            weight = temp;
-            result.push(vertices[_id_from].name);
+            if (temp === vertices[_id_from].distance) {
+              weight = temp;
+              end_index = _id_from;
+              result.push(vertices[_id_from].name);
+            }
           }
         }
       }
@@ -67548,7 +67579,7 @@ var Algorithm = /*#__PURE__*/function (_Component) {
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, " \u041D\u0430\u0439\u0442\u0438 \u043A\u0440\u0430\u0439\u0442\u0447\u0430\u0439\u0448\u0438\u0439 \u043F\u0443\u0442\u044C: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: this.handleSubmit
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "\u0418\u0437:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "\u0418\u0437:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
         value: this.state.data.vertex_id_from,
         onChange: function onChange(e) {
           return _this2.handleInput('vertex_id_from', e);
@@ -67558,7 +67589,7 @@ var Algorithm = /*#__PURE__*/function (_Component) {
           value: vertex.id,
           key: "algorithm-from" + vertex.id
         }, vertex.name);
-      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "\u0412:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "\u0412:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
         value: this.state.data.vertex_id_to,
         onChange: function onChange(e) {
           return _this2.handleInput('vertex_id_to', e);
@@ -67568,10 +67599,10 @@ var Algorithm = /*#__PURE__*/function (_Component) {
           value: vertex.id,
           key: "algorithm-to" + vertex.id
         }, vertex.name);
-      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "submit",
         value: "\u041D\u0430\u0439\u0442\u0438"
-      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, " \u0420\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.state.result)));
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, " \u0420\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.state.result)));
     }
   }]);
 

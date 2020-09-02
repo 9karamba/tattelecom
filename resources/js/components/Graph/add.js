@@ -31,16 +31,13 @@ class AddGraph extends Component {
             <div>
 
                 <div>
-                    <h2> Добавить новый граф </h2>
+                    <h4> Добавить новый граф: </h4>
 
                     <form onSubmit={this.handleSubmit}>
 
-                        <label>
-                            Имя:
-                            <input type="text" onChange={(e)=>this.handleInput('name',e)} />
-                        </label>
-
+                        <input type="text" placeholder="Введите имя.." onChange={(e)=>this.handleInput('name',e)} />
                         <input  type="submit" value="Добавить" />
+
                     </form>
                 </div>
             </div>)

@@ -23,7 +23,7 @@ class EdgesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'weight' => 'required|integer',
+            'weight' => 'required|integer|min:0',
             'vertex_id_from' => 'required|integer',
             'vertex_id_to' => 'required|integer'
         ]);

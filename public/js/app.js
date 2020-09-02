@@ -65841,6 +65841,126 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
+/***/ "./resources/js/components/Edge/add.js":
+/*!*********************************************!*\
+  !*** ./resources/js/components/Edge/add.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+var AddEdge = /*#__PURE__*/function (_Component) {
+  _inherits(AddEdge, _Component);
+
+  var _super = _createSuper(AddEdge);
+
+  function AddEdge(props) {
+    var _this;
+
+    _classCallCheck(this, AddEdge);
+
+    _this = _super.call(this, props);
+    _this.state = {
+      newEdge: {
+        weight: 0,
+        vertex_id_from: _this.props.vertices[0].id,
+        vertex_id_to: _this.props.vertices[1].id
+      },
+      vertices: _this.props.vertices
+    };
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.handleInput = _this.handleInput.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(AddEdge, [{
+    key: "handleInput",
+    value: function handleInput(key, e) {
+      var state = Object.assign({}, this.state.newEdge);
+      state[key] = e.target.value;
+      this.setState({
+        newEdge: state
+      });
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit(e) {
+      e.preventDefault();
+      this.props.onAdd(this.state.newEdge);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, " \u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u043D\u043E\u0432\u0443\u044E \u0432\u0435\u0440\u0448\u0438\u043D\u0443 "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        onSubmit: this.handleSubmit
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "\u0412\u0435\u0441:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        onChange: function onChange(e) {
+          return _this2.handleInput('weight', e);
+        }
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "\u0418\u0437 \u0442\u043E\u0447\u043A\u0438:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        value: this.state.newEdge.vertex_id_from,
+        onChange: function onChange(e) {
+          return _this2.handleInput('vertex_id_from', e);
+        }
+      }, this.state.vertices.map(function (vertex) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+          value: vertex.id,
+          key: "from" + vertex.id
+        }, vertex.name);
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "\u0412 \u0442\u043E\u0447\u043A\u0443:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        value: this.state.newEdge.vertex_id_to,
+        onChange: function onChange(e) {
+          return _this2.handleInput('vertex_id_to', e);
+        }
+      }, this.state.vertices.map(function (vertex) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+          value: vertex.id,
+          key: "to" + vertex.id
+        }, vertex.name);
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "submit",
+        value: "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C"
+      }))));
+    }
+  }]);
+
+  return AddEdge;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+/* harmony default export */ __webpack_exports__["default"] = (AddEdge);
+
+/***/ }),
+
 /***/ "./resources/js/components/Graph/add.js":
 /*!**********************************************!*\
   !*** ./resources/js/components/Graph/add.js ***!
@@ -66115,6 +66235,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _add__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./add */ "./resources/js/components/Graph/add.js");
 /* harmony import */ var _Vertex_add__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Vertex/add */ "./resources/js/components/Vertex/add.js");
+/* harmony import */ var _Edge_add__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Edge/add */ "./resources/js/components/Edge/add.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -66141,6 +66262,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var ShowGraph = /*#__PURE__*/function (_Component) {
   _inherits(ShowGraph, _Component);
 
@@ -66158,6 +66280,7 @@ var ShowGraph = /*#__PURE__*/function (_Component) {
       edges: []
     };
     _this.handleAddVertex = _this.handleAddVertex.bind(_assertThisInitialized(_this));
+    _this.handleAddEdge = _this.handleAddEdge.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -66191,7 +66314,7 @@ var ShowGraph = /*#__PURE__*/function (_Component) {
 
       return this.state.vertices.map(function (vertex) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
-          key: vertex.id
+          key: "header" + vertex.id
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, vertex.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           onClick: function onClick() {
             return _this3.handleDeleteVertex(vertex);
@@ -66212,17 +66335,17 @@ var ShowGraph = /*#__PURE__*/function (_Component) {
 
           if (cell.length === 0) {
             return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
-              key: vertex_from.id
+              key: "empty-cell" + vertex_from.id
             }, " 0 ");
           } else {
             return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
-              key: cell[0].id
+              key: "cell" + cell[0].id
             }, cell[0].weight);
           }
         });
 
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
-          key: vertex_to.id
+          key: "row" + vertex_to.id
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, vertex_to.name), row);
       });
     }
@@ -66267,12 +66390,29 @@ var ShowGraph = /*#__PURE__*/function (_Component) {
       });
     }
   }, {
+    key: "handleAddEdge",
+    value: function handleAddEdge(edge) {
+      var _this7 = this;
+
+      fetch('api/edges/', {
+        method: 'post',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(edge)
+      }).then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        _this7.setState({
+          edges: data
+        });
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
-      var _this$state = this.state,
-          graph = _this$state.graph,
-          vertices = _this$state.vertices,
-          edges = _this$state.edges;
+      var graph = this.state.graph;
 
       if (graph === null) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, " \u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0433\u0440\u0430\u0444. "));
@@ -66280,6 +66420,9 @@ var ShowGraph = /*#__PURE__*/function (_Component) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null), this.renderHead())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, this.renderBody())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Vertex_add__WEBPACK_IMPORTED_MODULE_2__["default"], {
           graph_id: this.state.graph.id,
           onAdd: this.handleAddVertex
+        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Edge_add__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          vertices: this.state.vertices,
+          onAdd: this.handleAddEdge
         })));
       }
     }

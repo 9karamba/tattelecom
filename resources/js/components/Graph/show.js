@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import AddGraph from "./add";
 import AddVertex from "../Vertex/add";
+import AddEdge from "../Edge/add";
 
 class ShowGraph extends Component {
 
@@ -12,7 +13,9 @@ class ShowGraph extends Component {
             vertices: [],
             edges: []
         }
+
         this.handleAddVertex = this.handleAddVertex.bind(this);
+        this.handleAddEdge = this.handleAddEdge.bind(this);
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -42,7 +45,7 @@ class ShowGraph extends Component {
     renderHead() {
         return this.state.vertices.map(vertex => {
             return (
-                <th key={vertex.id} >
+                <th key={"header" + vertex.id} >
                     <p>
                         {vertex.name}
                     </p>
@@ -64,19 +67,19 @@ class ShowGraph extends Component {
                 });
                 if(cell.length === 0 ) {
                     return (
-                        <td key={vertex_from.id}> 0 </td>
+                        <td key={"empty-cell" + vertex_from.id}> 0 </td>
                     );
                 }
                 else{
                     return (
-                        <td key={cell[0].id}>
+                        <td key={"cell" + cell[0].id}>
                             {cell[0].weight}
                         </td>
                     );
                 }
             });
             return (
-                <tr key={vertex_to.id} >
+                <tr key={"row" + vertex_to.id} >
                     <td>
                         {vertex_to.name}
                     </td>
@@ -123,8 +126,30 @@ class ShowGraph extends Component {
             });
     }
 
+    handleAddEdge(edge) {
+
+        fetch( 'api/edges/', {
+            method:'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+
+            body: JSON.stringify(edge)
+        })
+            .then(response => {
+                return response.json();
+            })
+            .then( data => {
+
+                this.setState({
+                    edges: data
+                })
+            })
+    }
+
     render() {
-        const { graph, vertices, edges } = this.state;
+        const { graph } = this.state;
 
         if(graph === null) {
             return (
@@ -152,6 +177,7 @@ class ShowGraph extends Component {
 
                     <div>
                         <AddVertex graph_id={this.state.graph.id} onAdd={this.handleAddVertex} />
+                        <AddEdge vertices={this.state.vertices} onAdd={this.handleAddEdge} />
                     </div>
                 </div>
 

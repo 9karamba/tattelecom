@@ -21,7 +21,7 @@ class EdgesController extends Controller
         ]);
 
         $edge = Edge::create($request->all());
-        return response()->json($edge, 201);
+        return response()->json(Edge::all(), 201);
     }
 
     public function delete(Edge $edge)

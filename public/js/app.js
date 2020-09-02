@@ -66154,7 +66154,8 @@ var ShowGraph = /*#__PURE__*/function (_Component) {
     _this = _super.call(this);
     _this.state = {
       graph: null,
-      vertices: []
+      vertices: [],
+      edges: []
     };
     _this.handleAddVertex = _this.handleAddVertex.bind(_assertThisInitialized(_this));
     return _this;
@@ -66172,6 +66173,13 @@ var ShowGraph = /*#__PURE__*/function (_Component) {
           _this2.setState({
             vertices: vertices,
             graph: _this2.props.graph
+          });
+        });
+        fetch('/api/edges/').then(function (response) {
+          return response.json();
+        }).then(function (edges) {
+          _this2.setState({
+            edges: edges
           });
         });
       }
@@ -66192,9 +66200,36 @@ var ShowGraph = /*#__PURE__*/function (_Component) {
       });
     }
   }, {
+    key: "renderBody",
+    value: function renderBody() {
+      var _this4 = this;
+
+      return this.state.vertices.map(function (vertex_to) {
+        var row = _this4.state.vertices.map(function (vertex_from) {
+          var cell = _this4.state.edges.filter(function (edge) {
+            return edge.vertex_id_from === vertex_from.id && edge.vertex_id_to === vertex_to.id;
+          });
+
+          if (cell.length === 0) {
+            return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+              key: vertex_from.id
+            }, " 0 ");
+          } else {
+            return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+              key: cell[0].id
+            }, cell[0].weight);
+          }
+        });
+
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+          key: vertex_to.id
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, vertex_to.name), row);
+      });
+    }
+  }, {
     key: "handleAddVertex",
     value: function handleAddVertex(vertex) {
-      var _this4 = this;
+      var _this5 = this;
 
       fetch('api/vertices/', {
         method: 'post',
@@ -66206,7 +66241,7 @@ var ShowGraph = /*#__PURE__*/function (_Component) {
       }).then(function (response) {
         return response.json();
       }).then(function (data) {
-        _this4.setState(function (prevState) {
+        _this5.setState(function (prevState) {
           return {
             vertices: prevState.vertices.concat(data)
           };
@@ -66216,17 +66251,17 @@ var ShowGraph = /*#__PURE__*/function (_Component) {
   }, {
     key: "handleDeleteVertex",
     value: function handleDeleteVertex(vertex) {
-      var _this5 = this;
+      var _this6 = this;
 
       var currentVertex = vertex;
       fetch('api/vertices/' + currentVertex.id, {
         method: 'delete'
       }).then(function (response) {
-        var array = _this5.state.vertices.filter(function (item) {
+        var array = _this6.state.vertices.filter(function (item) {
           return item !== currentVertex;
         });
 
-        _this5.setState({
+        _this6.setState({
           vertices: array
         });
       });
@@ -66236,12 +66271,13 @@ var ShowGraph = /*#__PURE__*/function (_Component) {
     value: function render() {
       var _this$state = this.state,
           graph = _this$state.graph,
-          vertices = _this$state.vertices;
+          vertices = _this$state.vertices,
+          edges = _this$state.edges;
 
       if (graph === null) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, " \u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0433\u0440\u0430\u0444. "));
       } else {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null), this.renderHead()))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Vertex_add__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null), this.renderHead())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, this.renderBody())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Vertex_add__WEBPACK_IMPORTED_MODULE_2__["default"], {
           graph_id: this.state.graph.id,
           onAdd: this.handleAddVertex
         })));

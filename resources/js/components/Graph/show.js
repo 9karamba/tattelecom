@@ -9,7 +9,8 @@ class ShowGraph extends Component {
         super();
         this.state = {
             graph: null,
-            vertices: []
+            vertices: [],
+            edges: []
         }
         this.handleAddVertex = this.handleAddVertex.bind(this);
     }
@@ -24,6 +25,15 @@ class ShowGraph extends Component {
                     this.setState({
                         vertices: vertices,
                         graph: this.props.graph
+                    });
+                });
+            fetch('/api/edges/')
+                .then(response => {
+                    return response.json();
+                })
+                .then(edges => {
+                    this.setState({
+                        edges: edges
                     });
                 });
         }
@@ -42,6 +52,36 @@ class ShowGraph extends Component {
                         Delete
                     </p>
                 </th>
+            );
+        })
+    }
+
+    renderBody() {
+        return this.state.vertices.map(vertex_to => {
+            let row = this.state.vertices.map(vertex_from => {
+                let cell = this.state.edges.filter(edge => {
+                    return edge.vertex_id_from === vertex_from.id && edge.vertex_id_to === vertex_to.id;
+                });
+                if(cell.length === 0 ) {
+                    return (
+                        <td key={vertex_from.id}> 0 </td>
+                    );
+                }
+                else{
+                    return (
+                        <td key={cell[0].id}>
+                            {cell[0].weight}
+                        </td>
+                    );
+                }
+            });
+            return (
+                <tr key={vertex_to.id} >
+                    <td>
+                        {vertex_to.name}
+                    </td>
+                    { row }
+                </tr>
             );
         })
     }
@@ -84,7 +124,7 @@ class ShowGraph extends Component {
     }
 
     render() {
-        const { graph, vertices } = this.state;
+        const { graph, vertices, edges } = this.state;
 
         if(graph === null) {
             return (
@@ -105,6 +145,9 @@ class ShowGraph extends Component {
                                 {this.renderHead()}
                             </tr>
                         </thead>
+                        <tbody>
+                            {this.renderBody()}
+                        </tbody>
                     </table>
 
                     <div>

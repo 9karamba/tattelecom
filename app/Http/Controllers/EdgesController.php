@@ -3,13 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Edge;
+use App\Vertex;
 use Illuminate\Http\Request;
 
 class EdgesController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return Edge::all();
+        $vertices = json_decode($request->vertices);
+        $vertices_id = [];
+
+        foreach ($vertices as $vertex) {
+            $vertices_id[] = $vertex->id;
+        }
+
+        return Edge::whereIn('vertex_id_from', $vertices_id)->get();
     }
 
     public function store(Request $request)

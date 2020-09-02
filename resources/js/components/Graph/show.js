@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import AddGraph from "./add";
 import AddVertex from "../Vertex/add";
 import AddEdge from "../Edge/add";
+import Algorithm from "../algorithm";
 
 class ShowGraph extends Component {
 
@@ -18,27 +18,17 @@ class ShowGraph extends Component {
         this.handleAddEdge = this.handleAddEdge.bind(this);
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    async componentDidUpdate(prevProps, prevState) {
         if (this.props.graph !== prevProps.graph) {
-            fetch('/api/vertices/?graph_id=' + this.props.graph.id)
-                .then(response => {
-                    return response.json();
-                })
-                .then(vertices => {
-                    this.setState({
-                        vertices: vertices,
-                        graph: this.props.graph
-                    });
-                });
-            fetch('/api/edges/')
-                .then(response => {
-                    return response.json();
-                })
-                .then(edges => {
-                    this.setState({
-                        edges: edges
-                    });
-                });
+            const firstResponse = await Promise.all([
+                axios.get('/api/vertices/?graph_id=' + this.props.graph.id)
+            ]);
+            const secondResponse = await axios.get('/api/edges/?vertices=' + JSON.stringify(firstResponse[0].data));
+            this.setState({
+                vertices: firstResponse[0].data,
+                graph: this.props.graph,
+                edges: secondResponse.data
+            });
         }
     }
 
@@ -197,6 +187,7 @@ class ShowGraph extends Component {
                     <div>
                         <AddVertex graph_id={this.state.graph.id} onAdd={this.handleAddVertex} />
                         <AddEdge vertices={this.state.vertices} onAdd={this.handleAddEdge} />
+                        <Algorithm vertices={this.state.vertices} edges={this.state.edges} />
                     </div>
                 </div>
 

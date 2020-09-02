@@ -18,6 +18,13 @@ class Algorithm extends Component {
         this.handleInput = this.handleInput.bind(this);
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            vertices: nextProps.vertices,
+            edges: nextProps.edges
+        });
+    }
+
     handleInput(key, e) {
 
         let state = Object.assign({}, this.state.data);
@@ -77,27 +84,30 @@ class Algorithm extends Component {
         let result = [ vertices[end].name ];
         let weight = vertices[end].distance;
 
-        while (end !== start) {
+        for (let i = 0; i < this.state.edges.length; i++) {
+            let id_from = this.state.edges[i].vertex_id_from;
+            let id_to = this.state.edges[i].vertex_id_to;
 
-            for (let i = 0; i < this.state.edges.length; i++) {
-                let id_from = this.state.edges[i].vertex_id_from;
-                let id_to = this.state.edges[i].vertex_id_to;
+            if (id_to === end) {
+                let temp = weight - this.state.edges[i].weight;
 
-                if (id_to === end) {
-                    let temp = weight - this.state.edges[i].weight;
-
-                    if (temp === vertices[id_from].distance) {
-                        weight = temp;
-                        end = id_from;
-                        result.push(vertices[id_from].name);
-                    }
+                if (temp === vertices[id_from].distance) {
+                    weight = temp;
+                    result.push(vertices[id_from].name);
                 }
             }
         }
 
-        this.setState({
-            result: result.reverse().join(' -> ') + '; Расстояние=' + vertices[this.state.data.vertex_id_to].distance
-        });
+        if (vertices[end].distance !== 10000) {
+            this.setState({
+                result: result.reverse().join(' -> ') + '; Расстояние=' + vertices[end].distance
+            });
+        }
+        else {
+            this.setState({
+                result: 'Кратчайшего пути нет.'
+            });
+        }
     }
 
     render() {

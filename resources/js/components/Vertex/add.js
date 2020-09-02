@@ -15,6 +15,12 @@ class AddVertex extends Component {
         this.handleInput = this.handleInput.bind(this);
     }
 
+    componentWillReceiveProps(nextProps) {
+        let state = Object.assign({}, this.state.newVertex);
+        state['graph_id'] = nextProps.graph_id;
+        this.setState({newVertex: state });
+    }
+
     handleInput(key, e) {
 
         let state = Object.assign({}, this.state.newVertex);

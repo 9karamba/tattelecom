@@ -17,6 +17,12 @@ class AddEdge extends Component {
         this.handleInput = this.handleInput.bind(this);
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            vertices: nextProps.vertices
+        });
+    }
+
     handleInput(key, e) {
 
         let state = Object.assign({}, this.state.newEdge);

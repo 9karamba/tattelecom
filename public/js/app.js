@@ -66672,6 +66672,13 @@ var AddEdge = /*#__PURE__*/function (_Component) {
   }
 
   _createClass(AddEdge, [{
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      this.setState({
+        vertices: nextProps.vertices
+      });
+    }
+  }, {
     key: "handleInput",
     value: function handleInput(key, e) {
       var state = Object.assign({}, this.state.newEdge);
@@ -67318,6 +67325,15 @@ var AddVertex = /*#__PURE__*/function (_Component) {
   }
 
   _createClass(AddVertex, [{
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      var state = Object.assign({}, this.state.newVertex);
+      state['graph_id'] = nextProps.graph_id;
+      this.setState({
+        newVertex: state
+      });
+    }
+  }, {
     key: "handleInput",
     value: function handleInput(key, e) {
       var state = Object.assign({}, this.state.newVertex);
@@ -67419,6 +67435,14 @@ var Algorithm = /*#__PURE__*/function (_Component) {
   }
 
   _createClass(Algorithm, [{
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      this.setState({
+        vertices: nextProps.vertices,
+        edges: nextProps.edges
+      });
+    }
+  }, {
     key: "handleInput",
     value: function handleInput(key, e) {
       var state = Object.assign({}, this.state.data);
@@ -67478,26 +67502,29 @@ var Algorithm = /*#__PURE__*/function (_Component) {
       var result = [vertices[end].name];
       var weight = vertices[end].distance;
 
-      while (end !== start) {
-        for (var _i = 0; _i < this.state.edges.length; _i++) {
-          var _id_from = this.state.edges[_i].vertex_id_from;
-          var _id_to = this.state.edges[_i].vertex_id_to;
+      for (var _i = 0; _i < this.state.edges.length; _i++) {
+        var _id_from = this.state.edges[_i].vertex_id_from;
+        var _id_to = this.state.edges[_i].vertex_id_to;
 
-          if (_id_to === end) {
-            var temp = weight - this.state.edges[_i].weight;
+        if (_id_to === end) {
+          var temp = weight - this.state.edges[_i].weight;
 
-            if (temp === vertices[_id_from].distance) {
-              weight = temp;
-              end = _id_from;
-              result.push(vertices[_id_from].name);
-            }
+          if (temp === vertices[_id_from].distance) {
+            weight = temp;
+            result.push(vertices[_id_from].name);
           }
         }
       }
 
-      this.setState({
-        result: result.reverse().join(' -> ') + '; Расстояние=' + vertices[this.state.data.vertex_id_to].distance
-      });
+      if (vertices[end].distance !== 10000) {
+        this.setState({
+          result: result.reverse().join(' -> ') + '; Расстояние=' + vertices[end].distance
+        });
+      } else {
+        this.setState({
+          result: 'Кратчайшего пути нет.'
+        });
+      }
     }
   }, {
     key: "render",

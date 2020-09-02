@@ -12,11 +12,6 @@ class GraphsController extends Controller
         return Graph::all();
     }
 
-    public function show(Graph $graph)
-    {
-        return $graph;
-    }
-
     public function store(Request $request)
     {
         $this->validate($request, [

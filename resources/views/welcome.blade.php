@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Laravel React application</title>
+    <title>Поиск кратчайшего пути в графе</title>
     <link href="{{mix('css/app.css')}}" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <h2 style="text-align: center"> Laravel and React application </h2>
-    <div id="example"></div>
+    <h1 class="title-site"> Поиск кратчайшего пути в графе </h1>
+    <div id="root"></div>
     <script src="{{mix('js/app.js')}}" ></script>
 </body>
 </html>

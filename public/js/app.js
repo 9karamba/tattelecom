@@ -67063,7 +67063,8 @@ var ShowGraph = /*#__PURE__*/function (_Component) {
     _this.state = {
       graph: null,
       vertices: [],
-      edges: []
+      edges: [],
+      error: null
     };
     _this.handleAddVertex = _this.handleAddVertex.bind(_assertThisInitialized(_this));
     _this.handleAddEdge = _this.handleAddEdge.bind(_assertThisInitialized(_this));
@@ -67136,9 +67137,14 @@ var ShowGraph = /*#__PURE__*/function (_Component) {
 
       return this.state.vertices.map(function (vertex_to) {
         var row = _this3.state.vertices.map(function (vertex_from) {
-          var cell = _this3.state.edges.filter(function (edge) {
-            return edge.vertex_id_from === vertex_from.id && edge.vertex_id_to === vertex_to.id;
-          });
+          var cell = [];
+          console.log(_this3.state.error);
+
+          if (_this3.state.edges.length !== undefined) {
+            cell = _this3.state.edges.filter(function (edge) {
+              return edge.vertex_id_from === vertex_from.id && edge.vertex_id_to === vertex_to.id;
+            });
+          }
 
           if (cell.length === 0) {
             return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", {
@@ -67215,9 +67221,15 @@ var ShowGraph = /*#__PURE__*/function (_Component) {
       }).then(function (response) {
         return response.json();
       }).then(function (data) {
-        _this6.setState({
-          edges: data
-        });
+        if (!data.message) {
+          _this6.setState({
+            edges: data
+          });
+        } else {
+          _this6.setState({
+            error: data.message
+          });
+        }
       });
     }
   }, {
@@ -67241,12 +67253,16 @@ var ShowGraph = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var graph = this.state.graph;
+      var _this$state = this.state,
+          graph = _this$state.graph,
+          error = _this$state.error;
 
-      if (graph === null) {
+      if (error !== null) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h4", null, error, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("br", null), "\u041E\u0431\u043D\u043E\u0432\u0438\u0442\u0435 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0443 \u0438 \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u0435\u0449\u0435 \u0440\u0430\u0437."));
+      } else if (graph === null) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h4", null, " \u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0433\u0440\u0430\u0444. "));
       } else {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("table", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null), this.renderHead())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tbody", null, this.renderBody())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Vertex_add__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, this.state.error), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("table", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null), this.renderHead())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tbody", null, this.renderBody())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Vertex_add__WEBPACK_IMPORTED_MODULE_2__["default"], {
           graph_id: this.state.graph.id,
           onAdd: this.handleAddVertex
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Edge_add__WEBPACK_IMPORTED_MODULE_3__["default"], {
@@ -67316,7 +67332,7 @@ var AddVertex = /*#__PURE__*/function (_Component) {
     _this.state = {
       newVertex: {
         name: '',
-        graph_id: _this.props.graph_id
+        graph_id: parseInt(_this.props.graph_id)
       }
     };
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));

@@ -20,7 +20,7 @@ class VerticesController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|unique:vertices|max:100',
-            'graph_id' => 'required'
+            'graph_id' => 'required|integer'
         ]);
 
         $vertex = Vertex::create($request->all());

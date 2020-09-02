@@ -7,7 +7,7 @@ class AddVertex extends Component {
         this.state = {
             newVertex: {
                 name: '',
-                graph_id: this.props.graph_id
+                graph_id: parseInt(this.props.graph_id)
             }
         }
 

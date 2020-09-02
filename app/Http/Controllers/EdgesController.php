@@ -28,7 +28,9 @@ class EdgesController extends Controller
             'vertex_id_to' => 'required|integer'
         ]);
 
-        $edge = Edge::create($request->all());
+        if($request['vertex_id_from'] !== $request['vertex_id_to']) {
+            Edge::firstOrCreate($request->all());
+        }
         return response()->json(Edge::all(), 201);
     }
 

@@ -11,7 +11,8 @@ class ShowGraph extends Component {
         this.state = {
             graph: null,
             vertices: [],
-            edges: []
+            edges: [],
+            error: null
         }
 
         this.handleAddVertex = this.handleAddVertex.bind(this);
@@ -52,9 +53,13 @@ class ShowGraph extends Component {
     renderBody() {
         return this.state.vertices.map(vertex_to => {
             let row = this.state.vertices.map(vertex_from => {
-                let cell = this.state.edges.filter(edge => {
-                    return edge.vertex_id_from === vertex_from.id && edge.vertex_id_to === vertex_to.id;
-                });
+                let cell = [];
+                console.log(this.state.error);
+                if(this.state.edges.length !== undefined){
+                    cell = this.state.edges.filter(edge => {
+                        return edge.vertex_id_from === vertex_from.id && edge.vertex_id_to === vertex_to.id;
+                    });
+                }
                 if(cell.length === 0 ) {
                     return (
                         <td key={"empty-cell" + vertex_from.id}> 0 </td>
@@ -102,6 +107,7 @@ class ShowGraph extends Component {
                 this.setState((prevState)=> ({
                     vertices: prevState.vertices.concat(data)
                 }))
+
             })
     }
 
@@ -136,9 +142,16 @@ class ShowGraph extends Component {
             })
             .then( data => {
 
-                this.setState({
-                    edges: data
-                })
+                if(!data.message) {
+                    this.setState({
+                        edges: data
+                    })
+                }
+                else{
+                    this.setState({
+                        error: data.message
+                    })
+                }
             })
     }
 
@@ -158,9 +171,21 @@ class ShowGraph extends Component {
     }
 
     render() {
-        const { graph } = this.state;
+        const { graph, error } = this.state;
 
-        if(graph === null) {
+        if(error !== null) {
+            return (
+                <div>
+                    <h4>
+                        {error}
+                        <br/>
+                        Обновите страницу и попробуйте еще раз.
+                    </h4>
+                </div>
+
+            );
+        }
+        else if(graph === null) {
             return (
                 <div>
                     <h4> Выберите граф. </h4>
@@ -171,6 +196,7 @@ class ShowGraph extends Component {
         else {
             return (
                 <div>
+                    <p>{this.state.error}</p>
 
                     <table>
                         <thead>

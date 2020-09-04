@@ -67071,10 +67071,12 @@ var ShowGraph = /*#__PURE__*/function (_Component) {
       graph: null,
       vertices: [],
       edges: [],
+      result: 0,
       error: null
     };
     _this.handleAddVertex = _this.handleAddVertex.bind(_assertThisInitialized(_this));
     _this.handleAddEdge = _this.handleAddEdge.bind(_assertThisInitialized(_this));
+    _this.handleAlgorithm = _this.handleAlgorithm.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -67262,6 +67264,19 @@ var ShowGraph = /*#__PURE__*/function (_Component) {
       });
     }
   }, {
+    key: "handleAlgorithm",
+    value: function handleAlgorithm(data) {
+      var _this8 = this;
+
+      fetch('/api/algorithm/?vertex_id_from=' + data.vertex_id_from + '&vertex_id_to=' + data.vertex_id_to).then(function (response) {
+        return response.json();
+      }).then(function (res) {
+        _this8.setState({
+          result: res
+        });
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this$state = this.state,
@@ -67288,8 +67303,9 @@ var ShowGraph = /*#__PURE__*/function (_Component) {
           className: "main-body__functional"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_algorithm__WEBPACK_IMPORTED_MODULE_4__["default"], {
           vertices: this.state.vertices,
-          edges: this.state.edges
-        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Vertex_add__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          edges: this.state.edges,
+          onAdd: this.handleAlgorithm
+        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h3", null, " \u0420\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, this.state.result)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Vertex_add__WEBPACK_IMPORTED_MODULE_2__["default"], {
           graph_id: this.state.graph.id,
           onAdd: this.handleAddVertex
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Edge_add__WEBPACK_IMPORTED_MODULE_3__["default"], {
@@ -67467,8 +67483,7 @@ var Algorithm = /*#__PURE__*/function (_Component) {
       data: {
         vertex_id_from: _this.props.vertices.length === 0 ? 0 : _this.props.vertices[0].id,
         vertex_id_to: _this.props.vertices.length === 0 ? 1 : _this.props.vertices[1].id
-      },
-      result: 0
+      }
     };
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.handleInput = _this.handleInput.bind(_assertThisInitialized(_this));
@@ -67496,81 +67511,7 @@ var Algorithm = /*#__PURE__*/function (_Component) {
     key: "handleSubmit",
     value: function handleSubmit(e) {
       e.preventDefault();
-      var minIndex, minDistance;
-      var start = parseInt(this.state.data.vertex_id_from);
-      var end = parseInt(this.state.data.vertex_id_to);
-      var vertices = [];
-      this.state.vertices.map(function (vertex) {
-        vertices[vertex.id] = {
-          name: vertex.name,
-          distance: vertex.id === start ? 0 : 10000,
-          visit: 0
-        };
-      }); //алгоритм Дейкстры
-
-      do {
-        minIndex = 10000;
-        minDistance = 10000;
-        vertices.forEach(function (vertex, index) {
-          if (vertex.visit === 0 && vertex.distance < minDistance) {
-            minDistance = vertex.distance;
-            minIndex = index;
-
-            if (vertex.id === start) {
-              vertex.visit = 1;
-            }
-          }
-        }); // Если соседних вершин нет
-
-        if (minIndex !== 10000) {
-          for (var i = 0; i < this.state.edges.length; i++) {
-            var id_from = this.state.edges[i].vertex_id_from;
-            var id_to = this.state.edges[i].vertex_id_to;
-
-            if (id_from === minIndex) {
-              var _weight = minDistance + this.state.edges[i].weight;
-
-              if (_weight < vertices[id_to].distance) {
-                vertices[id_to].distance = _weight;
-              }
-            }
-          }
-
-          vertices[minIndex].visit = 1;
-        }
-      } while (minIndex < 10000);
-
-      var result = [vertices[end].name];
-      var weight = vertices[end].distance;
-      var end_index = end;
-
-      while (end_index !== start && weight !== 10000) {
-        //получаем вершины в обратном порядке
-        for (var _i = 0; _i < this.state.edges.length; _i++) {
-          var _id_from = this.state.edges[_i].vertex_id_from;
-          var _id_to = this.state.edges[_i].vertex_id_to;
-
-          if (_id_to === end_index) {
-            var temp = weight - this.state.edges[_i].weight;
-
-            if (temp === vertices[_id_from].distance) {
-              weight = temp;
-              end_index = _id_from;
-              result.push(vertices[_id_from].name);
-            }
-          }
-        }
-      }
-
-      if (vertices[end].distance !== 10000) {
-        this.setState({
-          result: result.reverse().join(' -> ') + '; Расстояние=' + vertices[end].distance
-        });
-      } else {
-        this.setState({
-          result: 'Кратчайшего пути нет.'
-        });
-      }
+      this.props.onAdd(this.state.data);
     }
   }, {
     key: "render",
@@ -67602,7 +67543,7 @@ var Algorithm = /*#__PURE__*/function (_Component) {
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "submit",
         value: "\u041D\u0430\u0439\u0442\u0438"
-      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, " \u0420\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.state.result)));
+      }))));
     }
   }]);
 

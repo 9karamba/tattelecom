@@ -38,3 +38,5 @@ Route::delete('vertices/{vertex}', 'VerticesController@delete');
 Route::get('edges', 'EdgesController@index');
 Route::post('edges','EdgesController@store');
 Route::delete('edges/{edge}', 'EdgesController@delete');
+
+Route::get('algorithm', 'AlgorithmController@index');

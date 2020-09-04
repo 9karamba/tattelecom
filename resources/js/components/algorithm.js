@@ -10,8 +10,7 @@ class Algorithm extends Component {
             data: {
                 vertex_id_from: this.props.vertices.length === 0 ? 0 : this.props.vertices[0].id,
                 vertex_id_to: this.props.vertices.length === 0 ? 1 : this.props.vertices[1].id
-            },
-            result: 0
+            }
         }
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -34,86 +33,7 @@ class Algorithm extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-
-        let minIndex, minDistance;
-        let start = parseInt(this.state.data.vertex_id_from);
-        let end = parseInt(this.state.data.vertex_id_to);
-        let vertices = [];
-
-        this.state.vertices.map(vertex => {
-            vertices[vertex.id] = {
-                name: vertex.name,
-                distance: vertex.id === start ? 0 : 10000,
-                visit: 0
-            }
-        });
-
-        //алгоритм Дейкстры
-        do {
-            minIndex = 10000;
-            minDistance = 10000;
-
-            vertices.forEach((vertex, index) => {
-                if ((vertex.visit === 0) && (vertex.distance < minDistance)) {
-                    minDistance = vertex.distance;
-                    minIndex = index;
-
-                    if(vertex.id === start) {
-                        vertex.visit = 1;
-                    }
-                }
-            });
-            // Если соседних вершин нет
-            if (minIndex !== 10000)
-            {
-                for (let i = 0; i < this.state.edges.length; i++) {
-                    let id_from = this.state.edges[i].vertex_id_from;
-                    let id_to = this.state.edges[i].vertex_id_to;
-
-                    if (id_from === minIndex) {
-                        let weight = minDistance + this.state.edges[i].weight;
-
-                        if (weight < vertices[id_to].distance) {
-                            vertices[id_to].distance = weight;
-                        }
-                    }
-                }
-                vertices[minIndex].visit = 1;
-            }
-        } while (minIndex < 10000);
-
-        let result = [ vertices[end].name ];
-        let weight = vertices[end].distance;
-        let end_index = end;
-
-        while (end_index !== start && weight !== 10000) {
-            //получаем вершины в обратном порядке
-            for (let i = 0; i < this.state.edges.length; i++) {
-                let id_from = this.state.edges[i].vertex_id_from;
-                let id_to = this.state.edges[i].vertex_id_to;
-
-                if (id_to === end_index) {
-                    let temp = weight - this.state.edges[i].weight;
-
-                    if (temp === vertices[id_from].distance) {
-                        weight = temp;
-                        end_index = id_from;
-                        result.push(vertices[id_from].name);
-                    }
-                }
-            }
-        }
-
-        if (vertices[end].distance !== 10000) {
-            this.setState({
-                result: result.reverse().join(' -> ') + '; Расстояние=' + vertices[end].distance
-            });
-        }
-        else {
-            this.setState({
-                result: 'Кратчайшего пути нет.'
-            });
-        }
+        this.props.onAdd(this.state.data);
     }
 
     render() {
@@ -159,12 +79,6 @@ class Algorithm extends Component {
 
                         <input type="submit" value="Найти"/>
                     </form>
-                </div>
-                <div>
-                    <h3> Результат: </h3>
-                    <p>
-                        {this.state.result}
-                    </p>
                 </div>
             </div>)
     }

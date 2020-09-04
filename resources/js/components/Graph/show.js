@@ -12,11 +12,13 @@ class ShowGraph extends Component {
             graph: null,
             vertices: [],
             edges: [],
+            result: 0,
             error: null
         }
 
         this.handleAddVertex = this.handleAddVertex.bind(this);
         this.handleAddEdge = this.handleAddEdge.bind(this);
+        this.handleAlgorithm = this.handleAlgorithm.bind(this);
     }
 
     async componentDidUpdate(prevProps, prevState) {
@@ -173,6 +175,19 @@ class ShowGraph extends Component {
             });
     }
 
+    handleAlgorithm(data) {
+        fetch('/api/algorithm/?vertex_id_from=' + data.vertex_id_from
+            + '&vertex_id_to=' + data.vertex_id_to)
+            .then(response => {
+                return response.json();
+            })
+            .then(res => {
+                this.setState({
+                    result: res
+                });
+            });
+    }
+
     render() {
         const { graph, error } = this.state;
         const divStyle = {
@@ -216,7 +231,15 @@ class ShowGraph extends Component {
                     </table>
 
                     <div className="main-body__functional">
-                        <Algorithm vertices={this.state.vertices} edges={this.state.edges} />
+                        <Algorithm vertices={this.state.vertices} edges={this.state.edges} onAdd={this.handleAlgorithm} />
+
+                        <div>
+                            <h3> Результат: </h3>
+                            <p>
+                                {this.state.result}
+                            </p>
+                        </div>
+
                         <AddVertex graph_id={this.state.graph.id} onAdd={this.handleAddVertex} />
                         <AddEdge vertices={this.state.vertices} onAdd={this.handleAddEdge} />
                     </div>
